@@ -21,13 +21,13 @@ This is an MVP for Crop Insurance ecosystem.
 ## Workflow
 
 Farmer would send send a request `ASK` providing the following:
-    - Plot of land (Location X)
-      - for Y Dollars (Per Acre/Unit)
-    - Collateralize ($$$ ETH)
-    - Premium 
-    - Total Payout
-    - {Approved Oracles}
-    - Expiry date
+  - Plot of land (Location X)
+    - for Y Dollars (Per Acre/Unit)
+  - Collateralize ($$$ ETH)
+  - Premium 
+  - Total Payout
+  - {Approved Oracles}
+  - Expiry date
 
 The `ASK` orders will be listed in an `orderbook`. Insurance providers will come and take orders by filling them with matching Collateral. 
 
