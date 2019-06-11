@@ -51,8 +51,6 @@ Assuming no (successful) claim have been submitted in the period of the contract
   - If (Yes Failure) --> Payment to Farmer (Payout)
 
 
-
-
 ### 4. Claim Process
 
 
@@ -86,8 +84,6 @@ Assuming no (successful) claim have been submitted in the period of the contract
 If k out of N oracles approve, then Payout. 
 
 
-![Board V 0.0.1](assets/img/board-1.jpg "Board V 0.0.1")
-
 
 
 # Security Consideration
@@ -96,6 +92,11 @@ If k out of N oracles approve, then Payout.
 - Payout safety
 
 
+
+# Board Sketches
+![Board V 0.0.1](assets/img/board-1.jpg "Board V 0.0.1")
+
+![Board V 0.0.2](assets/img/board-1.jpg "Board V 0.0.2")
 
 
 
