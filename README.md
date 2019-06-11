@@ -96,7 +96,7 @@ If k out of N oracles approve, then Payout.
 # Board Sketches
 ![Board V 0.0.1](assets/img/board-1.jpg "Board V 0.0.1")
 
-![Board V 0.0.2](assets/img/board-1.jpg "Board V 0.0.2")
+![Board V 0.0.2](assets/img/board-2.jpg "Board V 0.0.2")
 
 
 
