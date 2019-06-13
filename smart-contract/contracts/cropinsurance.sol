@@ -233,7 +233,8 @@ contract meetup {
         require(policies[policyId].endDate < now);
         require(policies[policyId].claimDate == 0);
         require(policies[policyId].premiumDividendPayouts[msg.sender] != true);
-        
+        require(policies[policyId].premiumDividends[msg.sender]!=0);
+
         policies[policyId].premiumDividendPayouts[msg.sender] = true;
         
         msg.sender.transfer(policies[policyId].premiumDividends[msg.sender]);
