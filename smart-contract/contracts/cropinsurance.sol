@@ -32,7 +32,7 @@ contract meetup {
     
     struct Tranche {
         uint trancheId;
-        address seller;
+        address payable seller;
         uint policyId;
         uint collateralLiabilityChange;
         uint premiumDividendChange;
@@ -212,7 +212,7 @@ contract meetup {
     }
     
     /** @dev Allows a provider to collect the premium dividends from a policy that has expired without claim.
-      * @param trancheId The id of the policy to collect premiums from.
+      * @param policyId The id of the policy to collect premiums from.
       */
     function requestPolicyPremiumPayout(uint policyId) public policyExists(policyId) isPolicyProvider(policyId) {
         require(policies[policyId].endDate < now);
