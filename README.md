@@ -14,7 +14,7 @@ Additionally, this MVP serves to demonstrate the coexistence of a robust, seamle
 - Policy Expiry: 
 - Trading: 
 
-This MVP does not yet address: bidding, matching, partial crop failures, premium & payout reinvestment options, market-making, among other functionalities. See below for further discussion. 
+This MVP does not yet address: bidding, matching, partial crop failures, premium & payout reinvestment options, market-making, among other functionalities. See below for further discussion. Payments are currently made in ETH; however, a future-state version may require the use of a more stable currency, or at least the ability to specify alternatives. 
 
 ## Actors
 - Insurance Buyers: Farmers and landowners looking to purchase crop insurance to protect against the event of failed harvests
@@ -36,9 +36,10 @@ This MVP does not yet address: bidding, matching, partial crop failures, premium
 
 
 ### 1. Policy Creation
-Conditions: N/A
+Conditions: *need to fill in*
 
 Process:  
+
 A Farmer will create a proposal for insuring a plot of their land, then submit to the Insurance Provider marketplace. The proposal contains the following terms: 
 
 - Plot ID - one plot ID per proposal (Specified within plot registry: Total Size (km2) - total area covered by all plots included within contract)
@@ -61,10 +62,13 @@ Once accepted, and the funds from the Insurance Provider are deposited, the prop
 
 ### 2. Claim Submission
 Conditions: 
+
+*Need to complete*
 - Insurance contract is still valid
 - Current date must be equal to or less than date of expiry 
 
 Process:
+
 The Farmer will contact the Oracle, indicating they are raising an insurance claim, and request for a verification of the state of the Plot(s). This communication will take place off-chain. 
 
 The Oracle will address the following question: has total crop failure occurred for the total plot within this contract? This determination (i.e. analysis of data) will take place off-chain. 
@@ -78,16 +82,26 @@ The Oracle will address the following question: has total crop failure occurred 
 
 
 ### 3. Expiry
-Assuming no (successful) claim have been submitted in the period of the contract and the expiry date has reached.
-  - `Now > Expiry`
-  - The request to the Oracles is initiated by either the Farmer or the insurance provider
-  - Oracle approves that there has been no losses / (Or Claim process follows)
-    - Binary for now: Yes or No (Yes --> Payout, No --> Claim Process)
-  - If (No Failure) --> Payment to Insurance provider (Payout + Premium)
-  - If (Yes Failure) --> Payment to Farmer (Payout)
+*Need to complete*
 
+### 4. Trading
+*Need to edit*
+Conditions: 
+Insurance contract is still valid
+Current date must be equal to or less than date of expiry
 
-### 4. Claim Process
+Workflow:
+The Insurance Provider (Existing Holder) seeks to exit their total position or percentage of their position held within an Insurance Contract 
+
+The Insurance Trader (another Insurance provider) seeks to enter into or expand position within the same Insurance Contract
+
+The Insurance Trader will specify the: 
+- Ownership position that will transfer from Provider to Trader 
+- Price of the transfer ($)
+
+The Insurance Provider and Insurance Trader will both sign a transaction agreeing to the terms of the trade. The transaction is then submitted to the network. 
+
+To finalize the trade, the Insurance Trader must commit (send) the total amount corresponding to the price of the transfer ($) to the Insurance Contract. That same amount is then released from the contract and sent to the Insurance Provider. The ownership positions are then updated accordingly. 
 
 
 
