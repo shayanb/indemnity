@@ -36,15 +36,23 @@ This MVP does not yet address: bidding, matching, partial crop failures, premium
 
 
 ### 1. Policy Creation
-Farmer would send send a request `ASK`/`Proposal` providing the following:
-  - Plot of land (Location X)
-    - for Y Dollars (Per Acre/Unit)
-  - Premium (Per Unit) (Unit * Premium) ($$$ ETH) ~~(Collateralize)~~
-  - Total Payout (Per Unit)
-  - {Approved Oracles}
-  - Expiry date
+Conditions: N/A
+Process:  
+A Farmer will create a proposal for insuring a plot of their land, then submit to the Insurance Provider marketplace. The proposal contains the following terms: 
 
-The `ASK` orders will be listed in an `orderbook`. 
+- Plot ID - one plot ID per proposal (Specified within plot registry: Total Size (km2) - total area covered by all plots included within contract)
+- Start Date
+- End Date
+- Premium (ETH / km2) - amount per km2 paid by the farmer for the insurance protection in the event that crop failure does not occur 
+- Payout (ETH / km2) - amount per km2 of protection that the farmer seeks and would be guaranteed by an insurance provider in the event of crop failure 
+- Approved Oracle(s) - approved data provider(s) who will be ultimately responsible for verifying any claims of failure up till and including expiry; corresponds to a whitelist of approved and trusted public keys 
+
+At submission, the farmer also transfers the total premium amount (ETH) to the proposal.
+
+Before the submitted proposal is confirmed, there is a check to ensure that the submitter (the Farmer) is the listed owner of that plot
+
+The premium sits within the proposal and away from the farmer, but remains unlocked (farmer is able to withdraw), and the terms of the proposal can be modified accordingly, until the proposal is accepted by an Insurance Provider. 
+
 
 ### 2. Insurance Provider Accepts Proposal
 Insurance providers will come and accept proposals the desire from the `orderbook`: 
