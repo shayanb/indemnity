@@ -92,13 +92,129 @@ If k out of N oracles approve, then Payout.
 - Payout safety
 
 
+# API Design
 
-# Board Sketches
-![Board V 0.0.1](assets/img/board-1.jpg "Board V 0.0.1")
+## Data Structures
 
-![Board V 0.0.2](assets/img/board-2.jpg "Board V 0.0.2")
+```
+struct plot {
+    uint plotId;
+    address owner;
+}
+```
+
+```
+struct insuranceRequest {
+    uint plotId;
+    uint startDate;
+    uint endDate;
+    uint premium;
+    unit coverRequired;
+}
+```
+
+```
+struct policy {
+    uint policyId;
+    mapping(address => uint) collateralLiabilities;
+    mapping(address => uint) premiumDividends;
+    mapping(address => boolean) premiumDividendPayouts;
+    uint startDate;
+    uint endDate;
+}
+```
+
+```
+struct tranche {
+    address seller;
+    uint collateralLiabilityChange;
+    boolean sold;
+}
+```
+
+```
+public plot[] plots;
+public insuranceRequest[] insuranceRequests;
+public policy[] policies;
+public tranche[] tranches;
+```
+
+## Functions
+
+* **submitInsuranceRequest**
+  * plotId, startDate, endDate, premium, coverRequired
+
+    * require(plots[plotId] != 0)
+    * require(msg.sender == plots[plotId].owner)
+    * require(msg.value == premium)
+    * require(premium < coverRequired)
+    * require(startDate > now)
+    * require(endDate > startDate)
+    * require(endDate - startDate < 365 days)
+
+* **cancelInsuranceRequest**
+  * insuranceRequestId
+
+    * require(insuranceRequests[insuranceRequestId] != 0)
+    * require(policies[insuranceRequestId] == 0)
+    * require(msg.sender == plots[plotId].owner)
+
+ * **submitClaim**
+   * policyId, claimAmount
+
+     * require(policies[policyId] != 0)
+     * require(msg.sender == policies[policyId].insuredParty)
+     * require(policies[policyId].endDate > now)
+     * require(verifiers[ecrecover(hash, v, r, s)] != 0)
+     * require(policies[policyId].claimAmount <= policies[policyId].totalCollateral)
+
+ * **provideCover**
+   * insuranceRequestId
+
+     * require(insuranceRequests[insuranceRequestId] != 0)
+     * require(msg.value == insuranceRequests[insuranceRequestId].coverRequired)
+     * require(msg.sender != insuranceRequests[insuranceRequestId].insuredParty)
+
+ * sellPolicyPremiumDividend
+   * collateralLiabilityChange, premiumDividendChange, policyId
+
+     * require(policies[policyId] != 0)
+     * require(policies[policyId].collateralLiabilities[msg.sender] != 0)
+     * require(policies[policyId].premiumDividends[msg.sender] != 0)
+     * require(policies[policyId].collateralLiabilities[msg.sender] > collateralLiabilityChange)
+     * require(policies[policyId].premiumDividends[msg.sender] > premiumDividendChange)
+
+ * **cancelPolicyPremiumDividendSale**
+   * trancheId
+
+     * require(msg.sender == tranches[trancheId].seller)
+     * require(tranches[trancheId].sold != true)
 
 
+ * **buyPolicyPremiumDividend**
+   * tracheId
 
+      * require(tranches[trancheId] != 0)
+      * require(tranches[trancheId].sold != true)
+      * require(msg.value == tranches[tranchId].collateralLiabilityChange)
+      * require(msg.sender != tranches[trancheId].seller)
 
+ * **requestPolicyPremiumPayout**
+   * policyId
+
+     * require(policies[policyId] != 0)
+     * require(policies[policyId].endDate < now)
+     * require(policies[policyId].collateralLiabilities[msg.sender] != 0)
+     * require(policies[policyId].premiumDividends[msg.sender] != 0)
+     * require(policies[policyId].premiumDividendPayouts[msg.sender] != true)
+
+# Diagrams
+
+![Tranche Sale Workflow](https://i.ibb.co/CKcMY8S/blockchain-insurance-Page-1.png)
+
+![Tranche Sale Workflow](https://i.ibb.co/dbLmZRw/blockchain-insurance-Page-3.png)
+
+![Tranche Sale Workflow](https://i.ibb.co/NpXgtKH/crop-grower-dashboard.png)
+
+![Tranche Sale Workflow](https://i.ibb.co/sFgJSyM/Screenshot-2019-06-14-at-02-52-23.png)
 
