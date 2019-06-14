@@ -69,9 +69,9 @@ The Farmer will contact the Oracle, indicating they are raising an insurance cla
 
 The Oracle will address the following question: has total crop failure occurred for the total plot within this contract? This determination (i.e. analysis of data) will take place off-chain. 
 
-    - If NO (total crop failure has not occurred): the workflow is complete. 
+   - If NO (total crop failure has not occurred): the workflow is complete. 
 
-    - If YES (total crop failure has occurred): The Oracle will then sign a transaction indicating Yes (total crop failure has occurred) with their trusted private key. This transaction will be submitted to the network by the farmer. 
+   - If YES (total crop failure has occurred): The Oracle will then sign a transaction indicating Yes (total crop failure has occurred) with their trusted private key. This transaction will be submitted to the network by the farmer. 
         - There will be an automated verification process, confirming that the signature provided by the Oracle does, indeed, match one of the pre-specified trusted public keys (a determination made originally within the Farmer’s proposal). This will occur on-chain. 
         - Total payout and total premium are released to the Farmer
         - The Insurance Policy is no longer valid 
