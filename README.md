@@ -1,10 +1,12 @@
-# Indemnity
-Blockchain Insurance Project - an [initc3](https://www.initc3.org/events/2019-06-10-IC3-Blockchain-Boot-Camp.html) Ethereum bootcamp project
+# Crop Insurance on Blockchain
+A 2019 [initc3](https://www.initc3.org/events/2019-06-10-IC3-Blockchain-Boot-Camp.html) bootcamp project, built on Ethereum. 
 
 
-# Blockchain Insurance Specs
+# Overview
 
-This is an MVP for Crop Insurance ecosystem.
+The following documentation outlines an MVP for a peer to peer crop insurance ecosystem, powered by Ethereum. The objective of this MVP is to drive a holistically enhanced customer experience by enabling direct connectivity between demand-side (insurance buyers) and supply-side (insurance providers) participants and ensuring guaranteed, timely payouts of premiums and policies when applciable.  
+
+Additionally, this MVP serves to demonstrate the coexistence of a robust, seamless secondary trading marketplace for digital insurance contracts, and the benefits of facilitating that marketplace on the same rails utilized for the primary creation process. 
 
 ### Key points:
 - Anyone can launch/propose
