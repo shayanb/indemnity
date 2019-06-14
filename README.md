@@ -37,6 +37,7 @@ This MVP does not yet address: bidding, matching, partial crop failures, premium
 
 ### 1. Policy Creation
 Conditions: N/A
+
 Process:  
 A Farmer will create a proposal for insuring a plot of their land, then submit to the Insurance Provider marketplace. The proposal contains the following terms: 
 
@@ -53,10 +54,27 @@ Before the submitted proposal is confirmed, there is a check to ensure that the 
 
 The premium sits within the proposal and away from the farmer, but remains unlocked (farmer is able to withdraw), and the terms of the proposal can be modified accordingly, until the proposal is accepted by an Insurance Provider. 
 
+An Insurance Provider will be able to view the proposal and choose to accept. At acceptance, the Insurance Provider also commits (sends) the total payout amount ($) to the proposal. 
 
-### 2. Insurance Provider Accepts Proposal
-Insurance providers will come and accept proposals the desire from the `orderbook`: 
-  - Match Payout (Total Payout per Unit * Number of Units) ~~Collateral~~ ($$$ ETH)
+Once accepted, and the funds from the Insurance Provider are deposited, the proposal is complete and is a fully formed contract or policy. 
+
+
+### 2. Claim Submission
+Conditions: 
+- Insurance contract is still valid
+- Current date must be equal to or less than date of expiry 
+
+Process:
+The Farmer will contact the Oracle, indicating they are raising an insurance claim, and request for a verification of the state of the Plot(s). This communication will take place off-chain. 
+
+The Oracle will address the following question: has total crop failure occurred for the total plot within this contract? This determination (i.e. analysis of data) will take place off-chain. 
+
+    - If NO (total crop failure has not occurred): the workflow is complete. 
+
+    - If YES (total crop failure has occurred): The Oracle will then sign a transaction indicating Yes (total crop failure has occurred) with their trusted private key. This transaction will be submitted to the network by the farmer. 
+        - There will be an automated verification process, confirming that the signature provided by the Oracle does, indeed, match one of the pre-specified trusted public keys (a determination made originally within the Farmer’s proposal). This will occur on-chain. 
+        - Total payout and total premium are released to the Farmer
+        - The Insurance Policy is no longer valid 
 
 
 ### 3. Expiry
