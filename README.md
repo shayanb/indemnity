@@ -9,9 +9,12 @@ The following documentation outlines an MVP for a peer to peer crop insurance ec
 Additionally, this MVP serves to demonstrate the coexistence of a robust, seamless secondary trading marketplace for digital insurance contracts, and the benefits of facilitating that marketplace on the same rails utilized for the primary creation process. 
 
 ### Scope of MVP:
-- Policy Creation: Initial request of a new insurance policy and establishment of terms by an Insurance Buyer, acceptance of terms by an Insurance Provider 
-- Claim Submission: 
+- Policy Creation: An Insurance Buyer submits an initial request for a new insurance policy that includes all desired terms; Insurance Providers view the requests and determine if they choose to accept the requests. 
+
+- Claim Submission: Insurance Buyers submit off-chain claims to the chosen Oracle, requesting a determination that total crop failure has occurred prior to policy expiry. Oracles either reject the claim, or provide the Insurance Buyer with a signed message, indicating that total crop failure has occured. 
+
 - Policy Expiry: 
+
 - Trading: 
 
 This MVP does not yet address: bidding, matching, partial crop failures, premium & payout reinvestment options, market-making, among other functionalities. See below for further discussion. Payments are currently made in ETH; however, a future-state version may require the use of a more stable currency, or at least the ability to specify alternatives. 
