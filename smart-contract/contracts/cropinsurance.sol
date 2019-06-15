@@ -77,6 +77,23 @@ contract CropInsurance {
     
     event PolicyPremiumPayoutRequested(uint indexed policyId);
     
+    
+    
+    
+    /** @dev Allows owner to add plots.
+      * @param owner Address of the owner of the plot.
+      * @return plotIndex, identifier for the plot the farmer wants to insure 
+      */
+    funcion addPlot(address owner) public{
+    require(msg.sender==owner,"only owner can add plots")
+    Plot temp;
+    temp.plotId=plots.length;
+    temp.owner=owner;
+    plots.push(temp);
+    return (plots.length -1);
+    }
+    
+    
     /** @dev Allows farmer to submit a request for insurance cover.
       * @param plotIndex The plot the farmer wants to insure.
       * @param startDate The date the cover commences, more than policy can exist for a plot, but cannot overlap.
@@ -117,7 +134,7 @@ contract CropInsurance {
         
         insuranceRequests[insuranceRequestId].insuranceRequestId = 0;
         //TODO: maybe replace ^ with "delete insuranceRequests[insuranceRequestId]"
-
+    
         emit InsuranceRequestCancelled(insuranceRequestId);
     }
   
@@ -134,9 +151,9 @@ contract CropInsurance {
 
         InsuranceRequest memory proposal = insuranceRequests[insuranceRequestId];
         //TODO: make sure ^ results in the right request, no off by 1 errors
-
+    
         uint policyId = policies.length;
-
+    
         policies.push(Policy({
             policyId: policyId,
             insuranceRequestId: insuranceRequestId,
