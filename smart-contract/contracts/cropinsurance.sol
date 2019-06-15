@@ -70,7 +70,7 @@ contract CropInsurance {
     
     event CoverProvided(uint indexed insuranceRequestId);
     
-    event PolicyPremiumDividendOffered(uint indexed collateralLiabilityChange, uint indexed premiumDividendChange, uint policyExpiryDate, uint policyId);
+    event PolicyPremiumDividendOffered(uint indexed collateralLiabilityChange, uint indexed premiumDividendChange, uint policyExpiryDate, uint policyId,uint trancheId);
     
     event PolicyPremiumDividendSaleCancelled(uint indexed trancheId);
     
@@ -79,9 +79,41 @@ contract CropInsurance {
     event PolicyPremiumPayoutRequested(uint indexed policyId);
     
     event PlotAdded(string PlotName,uint PlotId);
+    
+    event TraunchCreated(uint tranchId);
+    
     address Contractowner;
     constructor() public{
-    Contractowner = msg.sender;    
+    Contractowner = msg.sender;
+    
+    //dummy plot
+    plots.push(Plot({
+            plotId: 0,
+            owner: msg.sender
+        }));
+    //dummy insurance id
+    insuranceRequests.push(InsuranceRequest({
+            insuranceRequestId: 0,
+            plotId: 0,
+            startDate: 0,
+            endDate: 0,
+            premium: 0,
+            coverRequired: 0,
+            insuredParty: msg.sender
+        }));
+        
+    policies.push(Policy({
+            policyId: 0,
+            insuranceRequestId: 0,
+            insuredParty: msg.sender,
+            collateral: 0,
+            premium: 0,
+            startDate: 0,
+            endDate: 0,
+            claimDate: 0
+        }));
+        
+    tranches.push(Tranche(0, msg.sender, 0,0,0, false));
     }
     /** @dev Allows owner to add plots.
       * @param plotname name of the plot.
@@ -92,10 +124,11 @@ contract CropInsurance {
     require(msg.sender==Contractowner,"only owner can add plots");
     uint PlotIndex = plots.length;
     plots.push(Plot({
-            plotId: PlotIndex,
+            plotId: (PlotIndex),
             owner: plotowner
         }));
     emit PlotAdded(plotname,PlotIndex);
+    
     }
     
     
@@ -135,7 +168,7 @@ contract CropInsurance {
       */
     function cancelInsuranceRequest(uint insuranceRequestId) public ownsPlot(insuranceRequests[insuranceRequestId].plotId) {
         require(insuranceRequests[insuranceRequestId].insuranceRequestId != 0, "insuranceRequestId does not exist");
-        require(policies[insuranceRequestId].policyId == 0, "There is already a policy assigned to this request");
+        require(policies.length<=insuranceRequestId, "There is already a policy assigned to this request");
         
         insuranceRequests[insuranceRequestId].insuranceRequestId = 0;
         //TODO: maybe replace ^ with "delete insuranceRequests[insuranceRequestId]"
@@ -149,8 +182,8 @@ contract CropInsurance {
       */
     function provideCover(uint insuranceRequestId) public payable returns (uint) {
         require(insuranceRequests[insuranceRequestId].insuranceRequestId != 0, "insuranceRequestId does not exist");
-        require(policies[insuranceRequestId].policyId == 0, "There is already a policy assigned to this request");
-        require(insuranceRequests[insuranceRequestId].startDate <= now, "Cover cannot be issued once start date has passed");
+        require(policies.length<=insuranceRequestId, "There is already a policy assigned to this request");
+        require(insuranceRequests[insuranceRequestId].startDate > now, "Cover cannot be issued once start date has passed");
         require(msg.value == insuranceRequests[insuranceRequestId].coverRequired, "deposit should be equal to requests coverRequired");
         require(msg.sender != insuranceRequests[insuranceRequestId].insuredParty, "Cannot insure your own request");
 
@@ -169,6 +202,9 @@ contract CropInsurance {
             endDate: proposal.endDate,
             claimDate: 0
         }));
+        
+        policies[policyId].collateralLiabilities[msg.sender]=proposal.coverRequired;
+        policies[policyId].premiumDividends[msg.sender]=proposal.premium;
         
         emit CoverProvided(insuranceRequestId);
         return (policyId);
@@ -204,18 +240,17 @@ contract CropInsurance {
     
     /** @dev Allows a provider to all or part of a policy they are providing cover for.
       * @param collateralLiabilityChange The amount of collateral the provider is currently providing, that will be replaced by buyer.
-      * @param premiumDividendChange The amount of the premiums the provide will collect, that will noe eb transfered to buyer.
+      * @param premiumDividendChange The amount of the premiums the provider is currently getting, that will be transfered to buyer.
       * @param policyId The id of the insurance policy in which the premiums dividends are being sold.
       */
-    function sellPolicyPremiumDividend(uint collateralLiabilityChange, uint premiumDividendChange, uint policyId) public policyExists(policyId) isPolicyProvider(policyId) {
+    function sellPolicyPremiumDividend(uint collateralLiabilityChange, uint premiumDividendChange, uint policyId) public payable policyExists(policyId) isPolicyProvider(policyId) {
         require(policies[policyId].collateralLiabilities[msg.sender] > collateralLiabilityChange);
         require(policies[policyId].premiumDividends[msg.sender] > premiumDividendChange);
-        require(collateralLiabilityChange < 0);
-        require(premiumDividendChange < 0);
+        uint trancheid=tranches.length;
+        tranches.push(Tranche(trancheid, msg.sender, policyId, collateralLiabilityChange, premiumDividendChange, false));
         
-        tranches.push(Tranche(tranches.length, msg.sender, policyId, collateralLiabilityChange, premiumDividendChange, false));
+        emit PolicyPremiumDividendOffered(collateralLiabilityChange, premiumDividendChange, policies[policyId].endDate, policyId,trancheid);
         
-        emit PolicyPremiumDividendOffered(collateralLiabilityChange, premiumDividendChange, policies[policyId].endDate, policyId);
     }
     
     /** @dev Allows a provider to cancel an ask for a premium dividend sale, before it has been bought.
@@ -236,17 +271,17 @@ contract CropInsurance {
     function buyPolicyPremiumDividend(uint trancheId) public payable {
         require(tranches[trancheId].trancheId != 0);
         require(tranches[trancheId].sold != true);
-        require(msg.value == tranches[trancheId].collateralLiabilityChange);
-        require(msg.sender != tranches[trancheId].seller);
+        require(msg.value == tranches[trancheId].collateralLiabilityChange,"Collateral amount should match the buy");
+        require(msg.sender != tranches[trancheId].seller,"seller cannot buy his own sell request");
         
         tranches[trancheId].sold = true;
         
         Tranche memory tranche = tranches[trancheId];
         
-        policies[tranche.policyId].collateralLiabilities[tranche.seller] += tranche.collateralLiabilityChange;
+        policies[tranche.policyId].collateralLiabilities[tranche.seller] -= tranche.collateralLiabilityChange;
         policies[tranche.policyId].collateralLiabilities[msg.sender] = tranche.collateralLiabilityChange;
         
-        policies[tranche.policyId].premiumDividends[tranche.seller] += tranche.premiumDividendChange;
+        policies[tranche.policyId].premiumDividends[tranche.seller] -= tranche.premiumDividendChange;
         policies[tranche.policyId].premiumDividends[msg.sender] = tranche.premiumDividendChange;
         
         tranche.seller.transfer(tranche.collateralLiabilityChange);
