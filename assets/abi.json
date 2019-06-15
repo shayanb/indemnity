@@ -1,0 +1,522 @@
+[
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "tranches",
+		"outputs": [
+			{
+				"name": "trancheId",
+				"type": "uint256"
+			},
+			{
+				"name": "seller",
+				"type": "address"
+			},
+			{
+				"name": "policyId",
+				"type": "uint256"
+			},
+			{
+				"name": "collateralLiabilityChange",
+				"type": "uint256"
+			},
+			{
+				"name": "premiumDividendChange",
+				"type": "uint256"
+			},
+			{
+				"name": "sold",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "plotIndex",
+				"type": "uint256"
+			},
+			{
+				"name": "startDate",
+				"type": "uint256"
+			},
+			{
+				"name": "endDate",
+				"type": "uint256"
+			},
+			{
+				"name": "premium",
+				"type": "uint256"
+			},
+			{
+				"name": "coverRequired",
+				"type": "uint256"
+			}
+		],
+		"name": "submitInsuranceRequest",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "policyId",
+				"type": "uint256"
+			}
+		],
+		"name": "requestPolicyPremiumPayout",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "plots",
+		"outputs": [
+			{
+				"name": "plotId",
+				"type": "uint256"
+			},
+			{
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "verifiers",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "trancheId",
+				"type": "uint256"
+			}
+		],
+		"name": "cancelPolicyPremiumDividendSale",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "insuranceRequestId",
+				"type": "uint256"
+			}
+		],
+		"name": "cancelInsuranceRequest",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "plotname",
+				"type": "string"
+			},
+			{
+				"name": "plotowner",
+				"type": "address"
+			}
+		],
+		"name": "addPlot",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "policyId",
+				"type": "uint256"
+			},
+			{
+				"name": "hash",
+				"type": "bytes32"
+			},
+			{
+				"name": "v",
+				"type": "uint8"
+			},
+			{
+				"name": "r",
+				"type": "bytes32"
+			},
+			{
+				"name": "s",
+				"type": "bytes32"
+			}
+		],
+		"name": "submitClaim",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "policies",
+		"outputs": [
+			{
+				"name": "policyId",
+				"type": "uint256"
+			},
+			{
+				"name": "insuranceRequestId",
+				"type": "uint256"
+			},
+			{
+				"name": "insuredParty",
+				"type": "address"
+			},
+			{
+				"name": "collateral",
+				"type": "uint256"
+			},
+			{
+				"name": "premium",
+				"type": "uint256"
+			},
+			{
+				"name": "startDate",
+				"type": "uint256"
+			},
+			{
+				"name": "endDate",
+				"type": "uint256"
+			},
+			{
+				"name": "claimDate",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "trancheId",
+				"type": "uint256"
+			}
+		],
+		"name": "buyPolicyPremiumDividend",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "collateralLiabilityChange",
+				"type": "uint256"
+			},
+			{
+				"name": "premiumDividendChange",
+				"type": "uint256"
+			},
+			{
+				"name": "policyId",
+				"type": "uint256"
+			}
+		],
+		"name": "sellPolicyPremiumDividend",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "insuranceRequestId",
+				"type": "uint256"
+			}
+		],
+		"name": "provideCover",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "insuranceRequests",
+		"outputs": [
+			{
+				"name": "insuranceRequestId",
+				"type": "uint256"
+			},
+			{
+				"name": "plotId",
+				"type": "uint256"
+			},
+			{
+				"name": "startDate",
+				"type": "uint256"
+			},
+			{
+				"name": "endDate",
+				"type": "uint256"
+			},
+			{
+				"name": "premium",
+				"type": "uint256"
+			},
+			{
+				"name": "coverRequired",
+				"type": "uint256"
+			},
+			{
+				"name": "insuredParty",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "insuranceRequestId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"name": "plotId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"name": "insuredParty",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "startDate",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "endDate",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "premium",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "coverRequired",
+				"type": "uint256"
+			}
+		],
+		"name": "InsuranceRequestSubmitted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "insuranceRequestId",
+				"type": "uint256"
+			}
+		],
+		"name": "InsuranceRequestCancelled",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "policyId",
+				"type": "uint256"
+			}
+		],
+		"name": "ClaimSubmitted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "insuranceRequestId",
+				"type": "uint256"
+			}
+		],
+		"name": "CoverProvided",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "collateralLiabilityChange",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"name": "premiumDividendChange",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "policyExpiryDate",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "policyId",
+				"type": "uint256"
+			}
+		],
+		"name": "PolicyPremiumDividendOffered",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "trancheId",
+				"type": "uint256"
+			}
+		],
+		"name": "PolicyPremiumDividendSaleCancelled",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "tranchId",
+				"type": "uint256"
+			}
+		],
+		"name": "PolicyPremiumDividendBought",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "policyId",
+				"type": "uint256"
+			}
+		],
+		"name": "PolicyPremiumPayoutRequested",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "PlotName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "PlotId",
+				"type": "uint256"
+			}
+		],
+		"name": "PlotAdded",
+		"type": "event"
+	}
+]
