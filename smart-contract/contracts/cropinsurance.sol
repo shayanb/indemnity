@@ -1,6 +1,6 @@
 pragma solidity >=0.4.22 <0.6.0;
 
-contract meetup {
+contract CropInsurance {
     struct Plot {
         uint plotId;
         address owner;
