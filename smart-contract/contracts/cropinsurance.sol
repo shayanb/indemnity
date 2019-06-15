@@ -79,14 +79,17 @@ contract CropInsurance {
     event PolicyPremiumPayoutRequested(uint indexed policyId);
     
     event PlotAdded(string PlotName,uint PlotId);
-    
-    
+    address Contractowner;
+    constructor() public{
+    Contractowner = msg.sender;    
+    }
     /** @dev Allows owner to add plots.
+      * @param plotname name of the plot.
       * @param plotowner Address of the owner of the plot.
       * @return plotIndex, identifier for the plot the farmer wants to insure 
       */
     function addPlot(string memory plotname,address plotowner) public returns(uint){
-    //require(msg.sender==Contractowner,"only owner can add plots");
+    require(msg.sender==Contractowner,"only owner can add plots");
     uint PlotIndex = plots.length;
     plots.push(Plot({
             plotId: PlotIndex,
