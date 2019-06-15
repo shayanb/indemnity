@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <title>DeFI Crop Insurance</title>
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+    <link rel="stylesheet" href="assets/getmdl-select.min.css">
+    <link rel="stylesheet" href="assets/styles.css">
+
+    <style>
+      #view-source {
+        position: fixed;
+        display: block;
+        right: 0;
+        bottom: 0;
+        margin-right: 40px;
+        margin-bottom: 40px;
+        z-index: 900;
+      }
+      .mdl-textfield:not(.is-dirty) input::-webkit-datetime-edit {
+        color: transparent; 
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Insurance Requests Dashboard</span>
+
+          <div class="mdl-layout-spacer"></div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+              <i class="material-icons">search</i>
+            </label>
+
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="search">
+              <label class="mdl-textfield__label" for="search">Enter your query...</label>
+            </div>
+          </div>
+
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right">
+            <li class="mdl-menu__item">About</li>
+            <li class="mdl-menu__item">Contact</li>
+            <li class="mdl-menu__item">Legal information</li>
+          </ul>
+        </div>
+      </header>
+
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          0x123456789...
+        </header>
+
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons">home</i>Cover Requests</a>
+          <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons">shopping_cart</i>My Portfolio</a>
+          <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons">local_offer</i>Marketplace</a>
+          <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons">help</i>About</a>
+          <div class="mdl-layout-spacer"></div>
+          <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons">help_outline</i><span class="visuallyhidden">Help</span></a>
+        </nav>
+      </div>
+
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <section style="display: flex" class="mdl-grid">
+          <table style="margin: 8px; flex: 3" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+              <tr>
+                <th class="mdl-data-table__cell--non-numeric">Plot</th>
+                <th class="mdl-data-table__cell--non-numeric">Start Date</th>
+                <th class="mdl-data-table__cell--non-numeric">End Date</th>
+                <th>Premium</th>
+                <th>Cover</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr style="display:none"><td> - </td></tr>
+            </tbody>
+          </table>
+
+          <div style="flex: 1; min-width: 340px">
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp" style="min-width: 340px">
+              <div class="mdl-card__title">
+                 <h4 class="mdl-card__title-text">Submit new request for insurance cover</h4>
+              </div>
+
+              <div class="mdl-card__supporting-text">
+                <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield getmdl-select">
+                    <input type="text" value="" class="mdl-textfield__input" id="plotId" readonly>
+                    <input type="hidden" value="" id="plotIdValue" name="plotId">
+                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                    <label for="plotId" class="mdl-textfield__label">Plot</label>
+
+                    <ul id="plotlist" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                    </ul>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="date" id="startDate">
+                    <label class="mdl-textfield__label" for="startDate">Start Date</label>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="date" id="endDate">
+                    <label class="mdl-textfield__label" for="endDate">End Date</label>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="number" id="premium">
+                    <label class="mdl-textfield__label" for="premium">Premium</label>
+                    <span class="mdl-textfield__error">Input is not a number!</span>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="number" id="cover">
+                    <label class="mdl-textfield__label" for="cover">Cover Required</label>
+                    <span class="mdl-textfield__error">Input is not a number!</span>
+                  </div>
+                </form>
+
+                <div class="mdl-card__actions">
+                   <button style="float: right" onclick="submitRequest()" class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" >
+                     Submit Request
+                     <i class="material-icons">chevron_right</i>
+                   </button>
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp" style="min-width: 340px">
+              <div class="mdl-card__title">
+                 <h4 class="mdl-card__title-text">Add New Plot</h4>
+              </div>
+
+              <div class="mdl-card__supporting-text">
+                <form action="#">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="plotname">
+                    <label class="mdl-textfield__label" for="plotname">Plot Name</label>
+                  </div>
+
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="plotaddress">
+                    <label class="mdl-textfield__label" for="plotaddress">Plot Address</label>
+                  </div>
+                </form>
+
+                <div class="mdl-card__actions">
+                   <button style="float: right" onclick="addPlot()" class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" >
+                     Add Plot
+                     <i class="material-icons">chevron_right</i>
+                   </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.25)" id="loader">
+          <p>Waiting for transaction to be mined, this may take a minute...</p>
+          <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script defer src="assets/getmdl-select.min.js"></script>
+    <script src="assets/web3.js"></script>
+    <script src="assets/app.js"></script>
+  </body>
+</html>
+
