@@ -26,7 +26,7 @@ This MVP does not yet address: plot and land registries, bidding, matching, part
 - **Insurance Providers:** Independent actuaries and smaller insurance companies who can provide coverage to Insurance Buyers in the event of crop failure and generate revenue from premiums in the absence of crop failure. Their decision to engage in the market is typically based on an assesment of risk factors, an analysis process that's typically unique to each provider. 
 
 - **Oracles:** trusted data sources that can verify the outcome of whether or not a crop has failed
-    - Note: Oracles are not required to directly participate in the network within this MVP;
+    - Note: Oracles are not required to directly participate in the network within this MVP
     - Potential oracles: 
         - Satellite data
         - Trusted evaluation firms
