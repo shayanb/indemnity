@@ -1,6 +1,7 @@
 pragma solidity >=0.4.22 <0.6.0;
 
 contract CropInsurance {
+
     struct Plot {
         uint plotId;
         address owner;
@@ -77,20 +78,21 @@ contract CropInsurance {
     
     event PolicyPremiumPayoutRequested(uint indexed policyId);
     
-    
+    event PlotAdded(string PlotName,uint PlotId);
     
     
     /** @dev Allows owner to add plots.
-      * @param owner Address of the owner of the plot.
+      * @param plotowner Address of the owner of the plot.
       * @return plotIndex, identifier for the plot the farmer wants to insure 
       */
-    funcion addPlot(address owner) public{
-    require(msg.sender==owner,"only owner can add plots")
-    Plot temp;
-    temp.plotId=plots.length;
-    temp.owner=owner;
-    plots.push(temp);
-    return (plots.length -1);
+    function addPlot(string memory plotname,address plotowner) public returns(uint){
+    //require(msg.sender==Contractowner,"only owner can add plots");
+    uint PlotIndex = plots.length;
+    plots.push(Plot({
+            plotId: PlotIndex,
+            owner: plotowner
+        }));
+    emit PlotAdded(plotname,PlotIndex);
     }
     
     
