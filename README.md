@@ -17,22 +17,21 @@ Additionally, this MVP serves to demonstrate the coexistence of a robust, seamle
 
 - Trading: 
 
-This MVP does not yet address: bidding, matching, partial crop failures, premium & payout reinvestment options, market-making, among other functionalities. See below for further discussion. Payments are currently made in ETH; however, a future-state version may require the use of a more stable currency, or at least the ability to specify alternatives. 
+This MVP does not yet address: plot and land registries, bidding, matching, partial crop failures, premium & payout reinvestment options, market-making, among other functionalities. See below for further discussion. Payments are currently made in ETH; however, a future-state version may require the use of a more stable currency, or at least the ability to specify alternatives. 
 
 ## Actors
 - Insurance Buyers: Farmers and landowners looking to purchase crop insurance to protect against the event of failed harvests
     - Note: farmers could independently insure their crops through this market, or pool assets to unlock lower premiums 
 - Insurance Providers: Independent actuaries and smaller insurance companies who can provide coverage to Insurance Buyers in the event of crop failure and generate revenue from premiums in the absence of crop failure. Their decision to engage in the market is typically based on an assesment of risk factors, an analysis process that's typically unique to each provider. 
-- Oracles: data sources that are trusted sources to verify the outcome of whether or not a crop has failed
-    - Note: Oracles are not required to directly participate in the network in this MVP 
+- Oracles: trusted data sources that can verify the outcome of whether or not a crop has failed
+    - Note: Oracles are not required to directly participate in the network within this MVP;
+    - Potential oracles: 
+        - Satellite data
+        - Trusted evaluation firms
+        - Sensors
 - Insurance Traders: Insurance Providers can be Insurance Traders
     - Motivations for trading can be varied, most notably including: diversification of risk, definite profit opportunities  
 
-
-## Plot Registry
-- Plot ID will be used for insurance ASK
-- Mapping (Off-chain or on-chain)
-- 
 -------------------------------
 
 ## Workflow
@@ -46,8 +45,8 @@ Process:
 A Farmer will create a proposal for insuring a plot of their land, then submit to the Insurance Provider marketplace. The proposal contains the following terms: 
 
 - Plot ID - one plot ID per proposal (Specified within plot registry: Total Size (km2) - total area covered by all plots included within contract)
-- Start Date
-- End Date
+- Start Date - when the policy would start
+- End Date - when the policy would expire
 - Premium (ETH / km2) - amount per km2 paid by the farmer for the insurance protection in the event that crop failure does not occur 
 - Payout (ETH / km2) - amount per km2 of protection that the farmer seeks and would be guaranteed by an insurance provider in the event of crop failure 
 - Approved Oracle(s) - approved data provider(s) who will be ultimately responsible for verifying any claims of failure up till and including expiry; corresponds to a whitelist of approved and trusted public keys 
@@ -87,6 +86,15 @@ The Oracle will address the following question: has total crop failure occurred 
 ### 3. Expiry
 *Need to complete*
 
+Conditions: 
+- Current date is after expiry date
+- Policy ID exists 
+- Requester is a listed insurance provider with stake in the policy; their stake still exists
+- No claims have been made on this policy
+- Message sender has not previously withdrawn funds from this contract
+
+After expiry date, if no claims have been made and both payout and premium exist within the contract, the Insurance Provider will be able to withdraw funds from the contract. The Insurance Provider will submit a transaction requesting this withdrawal, and if all conditions are met, both premium and payout is sent to the Insurance Provider, in accordance with their ownership stake in thep policy.  
+
 ### 4. Trading
 *Need to edit*
 Conditions: 
@@ -94,49 +102,25 @@ Insurance contract is still valid
 Current date must be equal to or less than date of expiry
 
 Workflow:
-The Insurance Provider (Existing Holder) seeks to exit their total position or percentage of their position held within an Insurance Contract 
+The Insurance Provider (Existing Holder) seeks to exit their total position or percentage of their position held within an Insurance Policy. 
 
-The Insurance Trader (another Insurance provider) seeks to enter into or expand position within the same Insurance Contract
+The Insurance Provider (Existing Holder) will create a request to sell, specifying: 
+- Change in Payout (ETH) - This is effectively the price of the trade. Trade settlement completes once the Insurance Trader deposits this amount into the Insurance Policy, and the same amount is withdrawn and transferred to the Insurance Provider, decreasing their liability position within the policy in the event of crop failure. This number must be equal to or less than the total payout amount of the policy.
 
-The Insurance Trader will specify the: 
-- Ownership position that will transfer from Provider to Trader 
-- Price of the transfer ($)
+- Change in Premium (ETH) - This amount corresponds to the change in ownership stake that the Insurance Provider has in the total premium. After trade settlement, this amount would be owed to the Insurance Trader instead of the Insurance Provider in the event crop failure. 
 
-The Insurance Provider and Insurance Trader will both sign a transaction agreeing to the terms of the trade. The transaction is then submitted to the network. 
+The Insurance Provider would then submit the request to the marketplace. 
 
-To finalize the trade, the Insurance Trader must commit (send) the total amount corresponding to the price of the transfer ($) to the Insurance Contract. That same amount is then released from the contract and sent to the Insurance Provider. The ownership positions are then updated accordingly. 
+The Insurance Trader (another Insurance provider) who seeks to enter into or expand position within the same Insurance Policy would accept the terms of the trade. In doing so, the Insurance Trader must send the total amount corresponding to the price of the transfer (ETH) to the Insurance Contract. That same amount is then released from the contract and sent to the Insurance Provider. The ownership positions are updated accordingly. 
 
-
-
-
-**Notes:**
-- `Unit` here is either Acre or KM^2
-- In the next versions, this process will be replaced with a bidding process.
-
-
-
-## Questions for later
-- Payment to Oracles
-- Bidding on insurance proposals
-- Land Plots (Geography)
-- Oracle can send a non-binary response (e.g. 80% of the crops have failed)
-- 
-
-## TODO:
-- Workflow for executing the contract
-  - With percentage Payout
-  - Without Payout
-- A lot more
-
-
-## Possible Oracles (Trusted):
-- Satellite data
-- Trusted evaluation firms
-- Sensors
-
-If k out of N oracles approve, then Payout. 
-
-
+## Future-State
+- Plot Registries
+- Bidding
+- Insurance Provider proposals + Matching engine
+- Partial crop failures
+- Exchange and market-making tools
+- Premium and payout reinvestment options
+- More flexibility with Oracles (i.e. approval rules - k of N Oracle approvals, etc.) 
 
 
 # Security Consideration
