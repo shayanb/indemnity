@@ -86,6 +86,7 @@ contract CropInsurance {
       */
     function submitInsuranceRequest(uint plotIndex, uint startDate, uint endDate, uint premium, uint coverRequired) public payable ownsPlot(plotIndex) returns (uint){
         require(plots[plotIndex].plotId != 0, "Plot index does not exist");
+        require(plots[plotIndex].owner == msg.sender, "Only plot owner can request coverage");
         require(msg.value == premium, "premium must be paid");
         require(premium < coverRequired, "coverRequired should be more than the premium");
         require(startDate >= now, "startDate should not be in the past");
@@ -126,6 +127,8 @@ contract CropInsurance {
       */
     function provideCover(uint insuranceRequestId) public payable returns (uint) {
         require(insuranceRequests[insuranceRequestId].insuranceRequestId != 0, "insuranceRequestId does not exist");
+        require(policies[insuranceRequestId].policyId == 0, "There is already a policy assigned to this request");
+        require(insuranceRequests[insuranceRequestId].startDate <= now, "Cover cannot be issued once start date has passed");
         require(msg.value == insuranceRequests[insuranceRequestId].coverRequired, "deposit should be equal to requests coverRequired");
         require(msg.sender != insuranceRequests[insuranceRequestId].insuredParty, "Cannot insure your own request");
 
@@ -159,14 +162,17 @@ contract CropInsurance {
       */
     function submitClaim(uint policyId, bytes32 hash, uint8 v, bytes32 r, bytes32 s) public policyExists(policyId) {
         require(msg.sender == policies[policyId].insuredParty, "only insuredParty can send this request");
-        require(policies[policyId].endDate > now, "Policy should not be expired");
+        require(policies[policyId].endDate >= now, "Policy should not be expired");
+        require(policies[policyId].claimDate == 0, "Only one claim can be made on policy; policy is invalid thereafter");
         require(verifiers[ecrecover(hash, v, r, s)] == true, "only approved verifiers signature are valid");
         //TODO: replay protection! now one valid verifier signature is valid for all other policies!!!
 
         policies[policyId].claimDate = now;
 
         //TODO: maybe do more checks for transfer. e.g. what if transfer fails?
+        //both premium and collateral transferred to insurance buyer
         msg.sender.transfer(policies[policyId].collateral);
+        msg.sender.transfer(policies[policyId].premium);
         
         emit ClaimSubmitted(policyId);
     }
@@ -237,8 +243,10 @@ contract CropInsurance {
 
         policies[policyId].premiumDividendPayouts[msg.sender] = true;
         
+        //both premium and collateral corresponding to insurance provider ownership stake sent to IP
         msg.sender.transfer(policies[policyId].premiumDividends[msg.sender]);
-        
+        msg.sender.transfer(policies[policyId].collateralLiabilities[msg.sender]);
+
         emit PolicyPremiumPayoutRequested(policyId);
     }
 }
