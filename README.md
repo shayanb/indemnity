@@ -20,16 +20,16 @@ Additionally, this MVP serves to demonstrate the coexistence of a robust, seamle
 This MVP does not yet address: plot and land registries, bidding, matching, partial crop failures, premium & payout reinvestment options, market-making, among other functionalities. See below for further discussion. Payments are currently made in ETH; however, a future-state version may require the use of a more stable currency, or at least the ability to specify alternatives. 
 
 ## Actors
-- Insurance Buyers: Farmers and landowners looking to purchase crop insurance to protect against the event of failed harvests
+- **Insurance Buyers:** Farmers and landowners looking to purchase crop insurance to protect against the event of failed harvests
     - Note: farmers could independently insure their crops through this market, or pool assets to unlock lower premiums 
-- Insurance Providers: Independent actuaries and smaller insurance companies who can provide coverage to Insurance Buyers in the event of crop failure and generate revenue from premiums in the absence of crop failure. Their decision to engage in the market is typically based on an assesment of risk factors, an analysis process that's typically unique to each provider. 
-- Oracles: trusted data sources that can verify the outcome of whether or not a crop has failed
+- **Insurance Providers:** Independent actuaries and smaller insurance companies who can provide coverage to Insurance Buyers in the event of crop failure and generate revenue from premiums in the absence of crop failure. Their decision to engage in the market is typically based on an assesment of risk factors, an analysis process that's typically unique to each provider. 
+- **Oracles:** trusted data sources that can verify the outcome of whether or not a crop has failed
     - Note: Oracles are not required to directly participate in the network within this MVP;
     - Potential oracles: 
         - Satellite data
         - Trusted evaluation firms
         - Sensors
-- Insurance Traders: Insurance Providers can be Insurance Traders
+- **Insurance Traders:** Insurance Providers can be Insurance Traders
     - Motivations for trading can be varied, most notably including: diversification of risk, definite profit opportunities  
 
 -------------------------------
@@ -38,6 +38,8 @@ This MVP does not yet address: plot and land registries, bidding, matching, part
 
 
 ### 1. Policy Creation
+Actors: Insurance Buyer, Insurance Trader
+
 Conditions: *need to fill in*
 
 Process:  
@@ -63,6 +65,8 @@ Once accepted, and the funds from the Insurance Provider are deposited, the prop
 
 
 ### 2. Claim Submission
+Actors: Insurance Buyer, Oracle
+
 Conditions: 
 
 *Need to complete*
@@ -84,6 +88,8 @@ The Oracle will address the following question: has total crop failure occurred 
 
 
 ### 3. Expiry
+Actors: Insurance Provider
+
 *Need to complete*
 
 Conditions: 
@@ -96,6 +102,8 @@ Conditions:
 After expiry date, if no claims have been made and both payout and premium exist within the contract, the Insurance Provider will be able to withdraw funds from the contract. The Insurance Provider will submit a transaction requesting this withdrawal, and if all conditions are met, both premium and payout is sent to the Insurance Provider, in accordance with their ownership stake in thep policy.  
 
 ### 4. Trading
+Actors: Insurance Provider, Insurance Trader
+
 *Need to edit*
 Conditions: 
 Insurance contract is still valid
@@ -111,7 +119,7 @@ The Insurance Provider (Existing Holder) will create a request to sell, specifyi
 
 The Insurance Provider would then submit the request to the marketplace. 
 
-The Insurance Trader (another Insurance provider) who seeks to enter into or expand position within the same Insurance Policy would accept the terms of the trade. In doing so, the Insurance Trader must send the total amount corresponding to the price of the transfer (ETH) to the Insurance Contract. That same amount is then released from the contract and sent to the Insurance Provider. The ownership positions are updated accordingly. 
+The Insurance Trader (another Insurance provider) who seeks to enter into or expand position within the same Insurance Policy would accept the terms of the trade. In doing so, the Insurance Trader must send the total amount corresponding to the price of the transfer (ETH) to the Insurance Contract. That same amount is then released from the contract and sent to the Insurance Provider. The ownership positions are updated accordingly. The Insurance Trader is now a listed Insurance Provider within the policy. 
 
 ## Future-State
 - Plot Registries
