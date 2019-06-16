@@ -262,7 +262,9 @@ public tranche[] tranches;
 
 # Diagrams
 
-![Tranche Sale Workflow](https://i.ibb.co/CKcMY8S/blockchain-insurance-Page-1.png)
+![Initial Workflow](./assets/img/blockchain-insurance-workflows.png)
+
+![Work Sequence](./assets/img/insurance-sequence.png)
 
 ![Tranche Sale Workflow](https://i.ibb.co/dbLmZRw/blockchain-insurance-Page-3.png)
 
