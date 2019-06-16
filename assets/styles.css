@@ -190,14 +190,14 @@ _:-ms-input-placeholder, :root .demo-graph {
   text-decoration: none;
 }
 
-.plotname {
+/* .plotname {
   min-height:190px; 
   overflow-y :auto; 
   overflow-x:hidden; 
   position:absolute;
   width:300px;
   display: contents;
-}
+} */
 
 .demo-options h3 {
   margin: 0;

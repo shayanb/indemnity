@@ -8,13 +8,13 @@
 
 .getmdl-select .selected {
     background-color: #ddd;
-    overflow-y :auto; 
+    overflow-y :scroll; 
 
 }
 
 .getmdl-select .mdl-icon-toggle__label {
     float: right;
-    overflow-y :auto; 
+    overflow-y :scroll; 
 	margin-top: -30px;
 	color: rgba(0, 0, 0, 0.4);
 	transform: rotate(0);
@@ -28,26 +28,30 @@
 
 .getmdl-select .mdl-menu__container {
     width: 100% !important;
-    overflow-y :auto; 
+    overflow-y :scroll; 
 	margin-top: 2px
 }
 
 .getmdl-select .mdl-menu__container .mdl-menu {
-	width: 100%
+    width: 100%;
+    overflow-y: scroll;
+
 }
 
 .getmdl-select .mdl-menu__container .mdl-menu .mdl-menu__item {
-	font-size: 16px
+    font-size: 16px;
+    overflow-y: scroll;
+
 }
 
 .getmdl-select__fix-height .mdl-menu__container .mdl-menu {
-	overflow-y: auto;
+	overflow-y: scroll;
 	max-height: 288px !important
 }
 
 .getmdl-select__fix-height .mdl-menu.mdl-menu--top-left {
     bottom: auto;
-    overflow-y :auto; 
+	overflow-y: scroll;
 	top: 0
 }
 /*# sourceMappingURL=getmdl-select.min.css.map */
