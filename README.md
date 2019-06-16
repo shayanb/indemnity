@@ -1,6 +1,10 @@
 # Crop Insurance on Blockchain
 A 2019 [initc3](https://www.initc3.org/events/2019-06-10-IC3-Blockchain-Boot-Camp.html) bootcamp project, built on Ethereum. 
 
+**Slides**: https://docs.google.com/presentation/d/1esDRIJ6rhfc185wXPz6Q08MYKb9XoIUcYrCvQlrSdNI/edit?usp=sharing
+
+**Live Demo**: https://shayanb.github.io/indemnity/index.html
+
 
 # Overview
 
