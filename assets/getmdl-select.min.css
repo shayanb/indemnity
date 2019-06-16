@@ -7,7 +7,9 @@
 }
 
 .getmdl-select .selected {
-	background-color: #ddd
+    background-color: #ddd;
+    overflow-y :auto; 
+
 }
 
 .getmdl-select .mdl-icon-toggle__label {
@@ -25,7 +27,8 @@
 }
 
 .getmdl-select .mdl-menu__container {
-	width: 100% !important;
+    width: 100% !important;
+    overflow-y :auto; 
 	margin-top: 2px
 }
 
@@ -43,7 +46,8 @@
 }
 
 .getmdl-select__fix-height .mdl-menu.mdl-menu--top-left {
-	bottom: auto;
+    bottom: auto;
+    overflow-y :auto; 
 	top: 0
 }
 /*# sourceMappingURL=getmdl-select.min.css.map */
